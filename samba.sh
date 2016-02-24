@@ -16,6 +16,9 @@ echo "	writable = yes" >> /etc/samba/smb.conf
 smbpasswd -a -n $user_name
 service smb restart
 
+chkconfig smb on
+chkconfig iptables off
+
 service iptables stop
 setenforce 0
 sed -i s!SELINUX=enforcing!SELINUX=disabled!g /etc/selinux/config
