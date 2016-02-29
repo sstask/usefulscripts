@@ -17,7 +17,7 @@ else
 	echo "$user_name:$user_pwd" | chpasswd
 
     echo "" >> /home/$user_name/.bash_profile
-	echo "ulimit -c unlimited" >> /home/$user_name/.bash_profile
+    echo "ulimit -c unlimited" >> /home/$user_name/.bash_profile
 	
     yum -y install vim
 
@@ -25,5 +25,4 @@ else
     echo "set termencoding=&encoding" >> /home/$user_name/.vimrc
     echo "set fileencodings=utf-8,chinese,gb2312" >> /home/$user_name/.vimrc
     echo "set fileencoding=utf-8" >> /home/$user_name/.vimrc
-    chown -R $user_name:$user_name /home/$user_name/.vimrc
 fi
