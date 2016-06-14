@@ -228,7 +228,7 @@ func createVcxproj(proname string) {
 	fOut.WriteString(strTemp)
 }
 
-func generateFile(vspath string, vsname string, dirpath string) {
+func GenerateFile(vspath string, vsname string, dirpath string) {
 	if dirpath == "." {
 		dirpath, _ = filepath.Abs(filepath.Dir(os.Args[0]))
 	}
