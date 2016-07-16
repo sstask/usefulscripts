@@ -1,4 +1,4 @@
-package vcxproj 
+package vcxproj
 
 import (
 	"crypto/md5"
@@ -27,7 +27,7 @@ func getFilelist(path string) {
 		if f == nil {
 			return err
 		}
-		if !isVaild(path) {
+		if f.IsDir() && !isVaild(path) {
 			return filepath.SkipDir
 		}
 		if f.IsDir() {
@@ -242,3 +242,30 @@ func GenerateFile(vspath string, vsname string, dirpath string) {
 	createFilters(vspath)
 	createVcxproj(vspath)
 }
+
+func VS() {
+	dirpath, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	cfgpath := dirpath + string(os.PathSeparator) + "cfg.json"
+	fmt.Println(cfgpath)
+	bytes, err := ioutil.ReadFile(cfgpath)
+	if err != nil {
+		fmt.Println("ReadFile: ", err.Error())
+		return
+	}
+
+	var xxx = map[string]string{}
+	if err := json.Unmarshal(bytes, &xxx); err != nil {
+		fmt.Println("Unmarshal: ", err.Error())
+		return
+	}
+	GenerateFile(xxx["vspath"], xxx["vsname"], xxx["srcpath"])
+}
+
+//cfg.json
+/*
+{
+"vspath":"D:\\svr\\svr",
+"vsname":"svr",
+"srcpath":"E:\\Server"
+}
+*/
