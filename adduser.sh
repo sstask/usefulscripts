@@ -9,15 +9,20 @@ user_name=$1
 user_pwd=$2
 
 if id -u $user_name >/dev/null 2>&1; then
-	echo "$user_name has existed"
-	exit -1
+    echo "$user_name has existed"
+    exit -1
 else
-	echo "create user $user_name..."
-	useradd $user_name
-	echo "$user_name:$user_pwd" | chpasswd
+    echo "create user $user_name..."
+    useradd $user_name
+    echo "$user_name:$user_pwd" | chpasswd
 
     echo "" >> /home/$user_name/.bash_profile
     echo "ulimit -c unlimited" >> /home/$user_name/.bash_profile
+    
+    if ! egrep $user_name /etc/security/limits.conf > /dev/null;then
+        echo "$user_name          soft    nofile          10240" >> /etc/security/limits.conf
+        echo "$user_name          hard    nofile          10240" >> /etc/security/limits.conf
+    fi
 	
     yum -y install vim
 
