@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"github.com/axgle/mahonia"
 )
 
 var targetPath string
@@ -255,8 +256,9 @@ func VS() {
 		return
 	}
 
+	decoder := mahonia.NewDecoder("gbk")
 	var xxx = map[string]string{}
-	if err := json.Unmarshal(bytes, &xxx); err != nil {
+	if err := json.Unmarshal([]byte(decoder.ConvertString(string(bytes))), &xxx); err != nil {
 		fmt.Println("Unmarshal: ", err.Error())
 		return
 	}
