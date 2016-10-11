@@ -30,4 +30,6 @@ else
     echo "set termencoding=&encoding" >> /home/$user_name/.vimrc
     echo "set fileencodings=utf-8,chinese,gb2312" >> /home/$user_name/.vimrc
     echo "set fileencoding=utf-8" >> /home/$user_name/.vimrc
+    
+    sysctl -p
 fi
